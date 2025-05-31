@@ -1,4 +1,5 @@
-const { expect, anyValue } = require("@nomicfoundation/hardhat-chai-matchers");
+const { expect } = require("chai");
+const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers");
 const { ethers } = require("hardhat");
 
 describe("CardMemoryGame", function () {
