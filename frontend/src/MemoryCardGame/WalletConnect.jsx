@@ -53,17 +53,40 @@ const WalletConnect = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '1.5rem 0' }}>
       {address ? (
-        <div style={{
-          background: '#f1f5f9',
-          borderRadius: '8px',
-          padding: '0.7rem 1.2rem',
-          color: '#222',
-          fontWeight: 600,
-          fontSize: '1.1rem',
-          boxShadow: '0 2px 8px rgba(99,102,241,0.08)',
-        }}>
-          Connected: <span style={{ color: '#6366f1' }}>{shortAddress(address)}</span>
-        </div>
+        <>
+          <div style={{
+            background: '#f1f5f9',
+            borderRadius: '8px',
+            padding: '0.7rem 1.2rem',
+            color: '#222',
+            fontWeight: 600,
+            fontSize: '1.1rem',
+            boxShadow: '0 2px 8px rgba(99,102,241,0.08)',
+            marginBottom: '0.5rem',
+          }}>
+            Connected: <span style={{ color: '#6366f1' }}>{shortAddress(address)}</span>
+          </div>
+          <button
+            onClick={() => {
+              setAddress('');
+              localStorage.removeItem('walletAddress');
+            }}
+            style={{
+              background: 'linear-gradient(90deg, #a5b4fc 0%, #818cf8 100%)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              padding: '0.6rem 1.2rem',
+              fontSize: '1rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(99,102,241,0.08)',
+              transition: 'background 0.2s, transform 0.1s',
+            }}
+          >
+            Disconnect
+          </button>
+        </>
       ) : (
         <button
           onClick={connectWallet}
