@@ -27,3 +27,13 @@ exports.saveGameData = async (req, res) => {
         res.status(500).json({ message: 'Error saving game data', error });
     }
 };
+
+exports.getGameHistory = async (req, res) => {
+    try {
+        const history = await Save.find().populate('userID', 'username').sort({ gameDate: -1 });
+        res.status(200).json({ success: true, data: history });
+    } catch (error) {
+        console.error('Error fetching game history:', error);
+        res.status(500).json({ success: false, message: 'Error fetching game history', error });
+    }
+};
