@@ -1,6 +1,12 @@
 const Save = require('../models/save');
+const { validationResult } = require('express-validator');
 
 exports.saveGameData = async (req, res) => {
+    // Validate input
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ success: false, errors: errors.array() });
+    }
     const { userID, gameDate, failed, difficulty, completed, timeTaken } = req.body;
 
     console.log('Received data to save:', req.body); 
