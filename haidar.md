@@ -66,4 +66,25 @@
 
 ---
 
+## 6. Frontend Automated Testing
+- **Test Runner:** [Vitest](https://vitest.dev/) (Vite-native, fast, supports JSX/React out of the box).
+- **Testing Library:** [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) for user-centric component tests.
+- **DOM Environment:** [jsdom](https://github.com/jsdom/jsdom) for simulating the browser.
+- **Jest-DOM:** [@testing-library/jest-dom](https://github.com/testing-library/jest-dom) for extended DOM matchers.
+- **Media Mock:** `HTMLMediaElement.prototype.play` is mocked in `src/setupTests.js` to silence jsdom errors for audio/video.
+- **Test Structure:**
+  - All game modes (`MemoryCardGame`, `MemoryEasy`, `MemoryMedium`) have basic smoke tests for rendering, card flipping, and matching logic.
+  - Tests are wrapped in `MemoryRouter` to provide routing context for `useNavigate`.
+  - `localStorage` is mocked to provide a test user ID.
+- **How to Run:**
+  1. `cd frontend`
+  2. `npm install` (if not already done)
+  3. `npm run test` or `npx vitest run`
+- **Best Practices:**
+  - Expand tests to cover more UI states, edge cases, and API interactions.
+  - Integrate with CI for automated test runs on every push/PR.
+  - Keep tests isolated and fast for rapid feedback.
+
+---
+
 **For further details, see code comments and individual module documentation.** 
