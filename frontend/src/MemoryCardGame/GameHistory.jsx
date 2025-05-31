@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './GameHistory.css';
 
 const GameHistory = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [search, setSearch] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -25,9 +28,25 @@ const GameHistory = () => {
     fetchHistory();
   }, []);
 
+  const filteredHistory = history.filter(item =>
+    item.userID?.username?.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="game-history-container">
-      <h2>Game Result History</h2>
+      <div className="history-header">
+        <button className="home-btn" onClick={() => navigate('/play')}>Home</button>
+        <h2>Game Result History</h2>
+      </div>
+      <div className="search-bar-wrapper">
+        <input
+          type="text"
+          placeholder="Search by username..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          className="search-bar"
+        />
+      </div>
       {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
       {!loading && !error && (
@@ -45,10 +64,10 @@ const GameHistory = () => {
               </tr>
             </thead>
             <tbody>
-              {history.length === 0 ? (
+              {filteredHistory.length === 0 ? (
                 <tr><td colSpan="7">No game results found.</td></tr>
               ) : (
-                history.map((item, idx) => (
+                filteredHistory.map((item, idx) => (
                   <tr key={item._id}>
                     <td>{idx + 1}</td>
                     <td>{item.userID?.username || 'Unknown'}</td>
