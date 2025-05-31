@@ -107,18 +107,21 @@ html, body {
 
 /* Background container */
 .background-container {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100vh;
-    background-position: center;
-    background-size: cover;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
 }
 
 /* Game title styling */
