@@ -9,7 +9,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "tailwind:init": "npx tailwindcss init"
+    "tailwind:init": "npx tailwindcss init",
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
