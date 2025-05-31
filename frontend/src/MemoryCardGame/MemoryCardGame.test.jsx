@@ -1,10 +1,15 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import MemoryCardGame from './MemoryCardGame';
 
 describe('MemoryCardGame', () => {
   test('renders the game and flips a card', () => {
-    render(<MemoryCardGame />);
+    render(
+      <MemoryRouter>
+        <MemoryCardGame />
+      </MemoryRouter>
+    );
     const cardBacks = screen.getAllByAltText('Card back');
     expect(cardBacks.length).toBeGreaterThan(0);
     fireEvent.click(cardBacks[0]);
@@ -13,7 +18,11 @@ describe('MemoryCardGame', () => {
   });
 
   test('matches two cards and updates matched state', async () => {
-    render(<MemoryCardGame />);
+    render(
+      <MemoryRouter>
+        <MemoryCardGame />
+      </MemoryRouter>
+    );
     const cardBacks = screen.getAllByAltText('Card back');
     fireEvent.click(cardBacks[0]);
     fireEvent.click(cardBacks[1]);
