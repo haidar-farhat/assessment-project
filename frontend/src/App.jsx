@@ -1,33 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import WalletConnect from './MemoryCardGame/WalletConnect'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+function App({ children }) {
+  const navigate = useNavigate();
+  const isAuthenticated = !!localStorage.getItem('token');
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userID');
+    navigate('/login');
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <nav className="global-header">
+        <div className="header-content">
+          <div className="app-title" style={{ cursor: 'pointer' }} onClick={() => navigate('/play')}>
+            Card Memory Game
+          </div>
+          <ul className="nav-links">
+            {isAuthenticated && <li><NavLink to="/play" className={({ isActive }) => isActive ? 'active' : ''}>Play</NavLink></li>}
+            {isAuthenticated && <li><NavLink to="/history" className={({ isActive }) => isActive ? 'active' : ''}>History</NavLink></li>}
+            {!isAuthenticated && <li><NavLink to="/login" className={({ isActive }) => isActive ? 'active' : ''}>Login</NavLink></li>}
+            {!isAuthenticated && <li><NavLink to="/register" className={({ isActive }) => isActive ? 'active' : ''}>Register</NavLink></li>}
+            {isAuthenticated && <li><button className="logout-btn" onClick={handleLogout}>Logout</button></li>}
+          </ul>
+          <WalletConnect />
+        </div>
+      </nav>
+      <main>
+        {children}
+      </main>
     </>
   )
 }

@@ -207,193 +207,200 @@ const Play = () => {
   };
 
   return (
-    <div
-      className="background-container"
-      style={{
-        backgroundImage: `url(${isCalmMode ? calmBackground : backgroundGif})`,
-      }}
-    >
-      <h1 className={`game-title ${isCalmMode ? "calm-title" : ""}`}>
-        WonderCards
-      </h1>
-
-      <div className="button-container">
-        <button
-          className={`game-button ${isCalmMode ? "calm-button" : ""}`}
-          onClick={PlayopenModal}
-          onMouseEnter={playHoverSound}
-        >
-          Play
-        </button>
-        <button
-          className={`game-button ${isCalmMode ? "calm-button" : ""}`}
-          onClick={() => {
-            playClickSound();
-            alert("Instructions coming soon!");
-          }}
-          onMouseEnter={playHoverSound}
-        >
-          Instructions
-        </button>
-        <button
-          className={`game-button ${isCalmMode ? "calm-button" : ""}`}
-          onClick={SettingopenModal}
-          onMouseEnter={playHoverSound}
-        >
-          Settings
-        </button>
-      </div>
-      <Modal
-        isOpen={SettingsmodalIsOpen}
-        onRequestClose={SettingcloseModal}
+    <div className="play-container">
+      {localStorage.getItem('walletAddress') && (
+        <div className="wallet-info">
+          Wallet: <span>{localStorage.getItem('walletAddress')}</span>
+        </div>
+      )}
+      <div
+        className="background-container"
         style={{
-          ...modalStyles,
-          content: {
-            ...modalStyles.content,
-            backgroundColor: isCalmMode ? "#86a17d" : "#1e1e2e",
-            color: isCalmMode ? "#ffffff" : "#fff",
-          },
+          backgroundImage: `url(${isCalmMode ? calmBackground : backgroundGif})`,
         }}
       >
-        <button
-          onClick={SettingcloseModal}
+        <h1 className={`game-title ${isCalmMode ? "calm-title" : ""}`}>
+          WonderCards
+        </h1>
+
+        <div className="button-container">
+          <button
+            className={`game-button ${isCalmMode ? "calm-button" : ""}`}
+            onClick={PlayopenModal}
+            onMouseEnter={playHoverSound}
+          >
+            Play
+          </button>
+          <button
+            className={`game-button ${isCalmMode ? "calm-button" : ""}`}
+            onClick={() => {
+              playClickSound();
+              alert("Instructions coming soon!");
+            }}
+            onMouseEnter={playHoverSound}
+          >
+            Instructions
+          </button>
+          <button
+            className={`game-button ${isCalmMode ? "calm-button" : ""}`}
+            onClick={SettingopenModal}
+            onMouseEnter={playHoverSound}
+          >
+            Settings
+          </button>
+        </div>
+        <Modal
+          isOpen={SettingsmodalIsOpen}
+          onRequestClose={SettingcloseModal}
           style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: "#fff",
+            ...modalStyles,
+            content: {
+              ...modalStyles.content,
+              backgroundColor: isCalmMode ? "#86a17d" : "#1e1e2e",
+              color: isCalmMode ? "#ffffff" : "#fff",
+            },
           }}
         >
-          <X size={24} />
-        </button>
+          <button
+            onClick={SettingcloseModal}
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "#fff",
+            }}
+          >
+            <X size={24} />
+          </button>
 
-        <h2 className={`${isCalmMode ? "calm-mode-label" : ""} modal-h2`}>
-          Background Music
-        </h2>
-        <div className="volume-control">
-          <span className="volume-icon">{mutedBg ? "🔇" : "🔊"}</span>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={bgVolume}
-            onChange={handleBgVolumeChange}
-            className="volume-slider"
-          />
-        </div>
-
-        <h2 className={`${isCalmMode ? "calm-mode-label" : ""} modal-h2`}>
-          Sound Effects
-        </h2>
-        <div className="volume-control">
-          <span className="volume-icon">{mutedSfx ? "🔇" : "🔊"}</span>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={sfxVolume}
-            onChange={handleSfxVolumeChange}
-            className="volume-slider"
-          />
-        </div>
-
-        {/* <div className="calm-mode">
           <h2 className={`${isCalmMode ? "calm-mode-label" : ""} modal-h2`}>
-            Calm Mode
+            Background Music
           </h2>
-          <label className="switch">
+          <div className="volume-control">
+            <span className="volume-icon">{mutedBg ? "🔇" : "🔊"}</span>
             <input
-              type="checkbox"
-              checked={isCalmMode}
-              onChange={toggleCalmMode}
+              type="range"
+              min="0"
+              max="100"
+              value={bgVolume}
+              onChange={handleBgVolumeChange}
+              className="volume-slider"
             />
-            <span className="slider round"></span>
-          </label>
-        </div> */}
-      </Modal>
+          </div>
 
-      <Modal
-        isOpen={PlaymodalIsOpen}
-        onRequestClose={PlaycloseModal}
-        style={{
-          ...modalPlayStyles,
-          content: {
-            ...modalPlayStyles.content,
-            backgroundColor: isCalmMode ? "#86a17d" : "#1e1e2e",
-            color: isCalmMode ? "#ffffff" : "#fff",
-          },
-        }}
-      >
-        <button
-          onClick={PlaycloseModal}
+          <h2 className={`${isCalmMode ? "calm-mode-label" : ""} modal-h2`}>
+            Sound Effects
+          </h2>
+          <div className="volume-control">
+            <span className="volume-icon">{mutedSfx ? "🔇" : "🔊"}</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={sfxVolume}
+              onChange={handleSfxVolumeChange}
+              className="volume-slider"
+            />
+          </div>
+
+          {/* <div className="calm-mode">
+            <h2 className={`${isCalmMode ? "calm-mode-label" : ""} modal-h2`}>
+              Calm Mode
+            </h2>
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={isCalmMode}
+                onChange={toggleCalmMode}
+              />
+              <span className="slider round"></span>
+            </label>
+          </div> */}
+        </Modal>
+
+        <Modal
+          isOpen={PlaymodalIsOpen}
+          onRequestClose={PlaycloseModal}
           style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: "#fff",
+            ...modalPlayStyles,
+            content: {
+              ...modalPlayStyles.content,
+              backgroundColor: isCalmMode ? "#86a17d" : "#1e1e2e",
+              color: isCalmMode ? "#ffffff" : "#fff",
+            },
           }}
         >
-          <X size={24} />
-        </button>
+          <button
+            onClick={PlaycloseModal}
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "#fff",
+            }}
+          >
+            <X size={24} />
+          </button>
 
-        <h2 className={`${isCalmMode ? "calm-mode-label" : ""} modal-h2`}>
-          Select Difficulty
-        </h2>
-        <div className="difficulty-selection">
-          <button
-            onClick={() => {
-              handleDifficultySelect("green");
-              playClickSound();
-            }}
-            className={`difficulty-button green ${
-              difficulty === "green" && !isCalmMode ? "selected" : ""
-            } ${isCalmMode && difficulty === "green" ? "calm-selected" : ""}`}
-            onMouseEnter={playHoverSound}
-          >
-            Easy
-          </button>
-          <button
-            onClick={() => {
-              handleDifficultySelect("yellow");
-              playClickSound();
-            }}
-            className={`difficulty-button yellow ${
-              difficulty === "yellow" && !isCalmMode ? "selected" : ""
-            } ${isCalmMode && difficulty === "yellow" ? "calm-selected" : ""}`}
-            onMouseEnter={playHoverSound}
-          >
-            Normal
-          </button>
-          <button
-            onClick={() => {
-              handleDifficultySelect("red");
-              playClickSound();
-            }}
-            className={`difficulty-button red ${
-              difficulty === "red" && !isCalmMode ? "selected" : ""
-            } ${isCalmMode && difficulty === "red" ? "calm-selected" : ""}`}
-            onMouseEnter={playHoverSound}
-          >
-            Hard
-          </button>
-        </div>
+          <h2 className={`${isCalmMode ? "calm-mode-label" : ""} modal-h2`}>
+            Select Difficulty
+          </h2>
+          <div className="difficulty-selection">
+            <button
+              onClick={() => {
+                handleDifficultySelect("green");
+                playClickSound();
+              }}
+              className={`difficulty-button green ${
+                difficulty === "green" && !isCalmMode ? "selected" : ""
+              } ${isCalmMode && difficulty === "green" ? "calm-selected" : ""}`}
+              onMouseEnter={playHoverSound}
+            >
+              Easy
+            </button>
+            <button
+              onClick={() => {
+                handleDifficultySelect("yellow");
+                playClickSound();
+              }}
+              className={`difficulty-button yellow ${
+                difficulty === "yellow" && !isCalmMode ? "selected" : ""
+              } ${isCalmMode && difficulty === "yellow" ? "calm-selected" : ""}`}
+              onMouseEnter={playHoverSound}
+            >
+              Normal
+            </button>
+            <button
+              onClick={() => {
+                handleDifficultySelect("red");
+                playClickSound();
+              }}
+              className={`difficulty-button red ${
+                difficulty === "red" && !isCalmMode ? "selected" : ""
+              } ${isCalmMode && difficulty === "red" ? "calm-selected" : ""}`}
+              onMouseEnter={playHoverSound}
+            >
+              Hard
+            </button>
+          </div>
 
-        <div>
-          <button
-            onClick={handlePlay}
-            className="play-button"
-            onMouseEnter={playHoverSound}
-          >
-            Accept
-          </button>
-        </div>
-      </Modal>
+          <div>
+            <button
+              onClick={handlePlay}
+              className="play-button"
+              onMouseEnter={playHoverSound}
+            >
+              Accept
+            </button>
+          </div>
+        </Modal>
+      </div>
     </div>
   );
 };

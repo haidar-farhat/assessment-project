@@ -42,10 +42,10 @@ const shuffleArray = (array) => {
 };
 const saveGameData = async (gameData) => {
   try {
-    const response = await axios.post("http://localhost:5000/api/memory/save", gameData, {
+    const walletAddress = localStorage.getItem('walletAddress');
+    const response = await axios.post("http://localhost:5000/api/memory/save", { ...gameData, walletAddress }, {
       headers: { "Content-Type": "application/json" },
     });
-
     console.log("Game data saved successfully", response.data);
   } catch (error) {
     console.error("Error saving game data:", error.response ? error.response.data : error.message);
