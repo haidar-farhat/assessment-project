@@ -12,7 +12,6 @@ exports.saveGameData = async (req, res) => {
     console.log('Received data to save:', req.body); 
 
     try {
-       
         if (!userID || !gameDate || difficulty === undefined || completed === undefined || timeTaken === undefined) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
@@ -24,7 +23,7 @@ exports.saveGameData = async (req, res) => {
             difficulty,
             completed,
             timeTaken,
-            walletAddress,
+            walletAddress: walletAddress || undefined,
         });
 
         await newSave.save(); 
