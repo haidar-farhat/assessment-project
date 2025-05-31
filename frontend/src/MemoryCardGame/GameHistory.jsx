@@ -61,11 +61,12 @@ const GameHistory = () => {
                 <th>Completed</th>
                 <th>Failed</th>
                 <th>Time Taken (s)</th>
+                <th>Wallet Address</th>
               </tr>
             </thead>
             <tbody>
               {filteredHistory.length === 0 ? (
-                <tr><td colSpan="7">No game results found.</td></tr>
+                <tr><td colSpan="8">No game results found.</td></tr>
               ) : (
                 filteredHistory.map((item, idx) => (
                   <tr key={item._id}>
@@ -76,6 +77,7 @@ const GameHistory = () => {
                     <td>{item.completed}</td>
                     <td>{item.failed}</td>
                     <td>{item.timeTaken}</td>
+                    <td>{item.walletAddress ? `${item.walletAddress.slice(0, 6)}...${item.walletAddress.slice(-4)}` : '-'}</td>
                   </tr>
                 ))
               )}
