@@ -8,7 +8,6 @@ describe("CardMemoryGame", function () {
     [owner, addr1, addr2] = await ethers.getSigners();
     const Game = await ethers.getContractFactory("CardMemoryGame");
     game = await Game.deploy();
-    await game.deployed();
   });
 
   it("should deploy and have empty leaderboard", async function () {
