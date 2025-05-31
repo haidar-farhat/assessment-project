@@ -9,4 +9,9 @@ export default defineConfig({
       overlay: false, // Disable the error overlay in development
     },
   },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.js',
+  },
 });
