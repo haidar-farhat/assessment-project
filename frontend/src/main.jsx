@@ -11,6 +11,7 @@ import Congratulations from "./MemoryCardGame/Congratulation";
 import CongtEasy from "./MemoryCardGame/Congratseasy";
 import CongtNormal from "./MemoryCardGame/Congratsnormal";
 import GameHistory from './MemoryCardGame/GameHistory';
+import WalletConnect from './MemoryCardGame/WalletConnect';
 
 
 const App = () => {
@@ -48,7 +49,7 @@ const App = () => {
          />
         <Route
           path="/play"
-          element={isAuthenticated ? <Play /> : <Navigate to="/login" />}
+          element={isAuthenticated ? <><WalletConnect /><Play /></> : <Navigate to="/login" />}
         />
   
         <Route
