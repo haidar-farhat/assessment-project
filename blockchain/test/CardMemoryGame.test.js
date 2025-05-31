@@ -1,4 +1,4 @@
-const { expect } = require("chai");
+const { expect, anyValue } = require("@nomicfoundation/hardhat-chai-matchers");
 const { ethers } = require("hardhat");
 
 describe("CardMemoryGame", function () {
@@ -40,7 +40,7 @@ describe("CardMemoryGame", function () {
   it("should emit NewResult event on new best score", async function () {
     await expect(game.connect(addr1).submitScore(50))
       .to.emit(game, "NewResult")
-      .withArgs(addr1.address, 50, anyValue => true);
+      .withArgs(addr1.address, 50, anyValue);
   });
 
   it("should maintain a sorted leaderboard of top scores", async function () {
