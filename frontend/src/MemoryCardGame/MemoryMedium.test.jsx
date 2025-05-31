@@ -3,6 +3,13 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import MemoryMedium from './MemoryMedium';
 
+beforeEach(() => {
+  window.localStorage.setItem('userID', 'test-user');
+});
+afterEach(() => {
+  window.localStorage.clear();
+});
+
 describe('MemoryMedium', () => {
   test('renders the medium game and flips a card', () => {
     render(
