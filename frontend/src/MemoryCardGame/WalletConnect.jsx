@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
 const WalletConnect = () => {
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState(() => localStorage.getItem('walletAddress') || '');
   const [error, setError] = useState('');
   const [isConnecting, setIsConnecting] = useState(false);
 
   useEffect(() => {
-    // Check if already connected
+    // Restore address from localStorage
     if (window.ethereum && window.ethereum.selectedAddress) {
       setAddress(window.ethereum.selectedAddress);
+      localStorage.setItem('walletAddress', window.ethereum.selectedAddress);
     }
     // Listen for account changes
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', (accounts) => {
         setAddress(accounts[0] || '');
+        if (accounts[0]) {
+          localStorage.setItem('walletAddress', accounts[0]);
+        } else {
+          localStorage.removeItem('walletAddress');
+        }
       });
     }
     // Cleanup
@@ -35,6 +41,7 @@ const WalletConnect = () => {
     try {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       setAddress(accounts[0]);
+      localStorage.setItem('walletAddress', accounts[0]);
     } catch (err) {
       setError('User rejected connection or another error occurred.');
     }
