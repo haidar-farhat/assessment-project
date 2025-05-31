@@ -7,7 +7,7 @@ exports.saveGameData = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ success: false, errors: errors.array() });
     }
-    const { userID, gameDate, failed, difficulty, completed, timeTaken } = req.body;
+    const { userID, gameDate, failed, difficulty, completed, timeTaken, walletAddress } = req.body;
 
     console.log('Received data to save:', req.body); 
 
@@ -24,6 +24,7 @@ exports.saveGameData = async (req, res) => {
             difficulty,
             completed,
             timeTaken,
+            walletAddress,
         });
 
         await newSave.save(); 
