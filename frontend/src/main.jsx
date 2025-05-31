@@ -18,8 +18,8 @@ const Root = () => {
   const handleLogin = () => setIsAuthenticated(true);
 
   return (
-    <App>
-      <Router>
+    <Router>
+      <App>
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/register" element={<Register />} />
@@ -33,8 +33,8 @@ const Root = () => {
           <Route path="/history" element={isAuthenticated ? <GameHistory /> : <Navigate to="/login" />} />
           <Route path="/" element={<Navigate to="/login" />} />
         </Routes>
-      </Router>
-    </App>
+      </App>
+    </Router>
   );
 };
 
