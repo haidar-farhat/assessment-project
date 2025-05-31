@@ -1,5 +1,26 @@
 # Backend API Test Instructions
 
+## Automated Backend Tests
+
+### How to Run Automated Tests
+
+1. Make sure MongoDB is running and your `.env` file is configured with a valid `MONGODB_URI`.
+2. Install all dependencies (including dev dependencies):
+   ```
+   npm install
+   ```
+3. Run the tests:
+   ```
+   npm test
+   ```
+
+- The tests will automatically create and clean up test data.
+- All endpoints are tested for both success and validation error cases.
+- If you see errors about missing dependencies, run `npm install` again.
+- If you see MongoDB connection errors, check your `.env` and MongoDB status.
+
+---
+
 ## 1. Test: Fetch Game Result History
 
 ### Endpoint
