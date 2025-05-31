@@ -3,6 +3,13 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import MemoryEasy from './MemoryEasy';
 
+beforeEach(() => {
+  window.localStorage.setItem('userID', 'test-user');
+});
+afterEach(() => {
+  window.localStorage.clear();
+});
+
 describe('MemoryEasy', () => {
   test('renders the easy game and flips a card', () => {
     render(
