@@ -30,4 +30,70 @@ curl -X GET http://localhost:5000/api/memory/history
 
 **Note:**
 - Ensure your backend server is running (`npm start` in the backend directory).
+- Make sure MongoDB is running and accessible.
+
+## 2. Test: Save Game Result (with Validation)
+
+### Endpoint
+`POST /api/memory/save`
+
+### Description
+Saves a new game result. Validates all required fields. Returns errors for invalid input.
+
+### How to Test with Postman
+1. Open Postman.
+2. Set the request type to `POST`.
+3. Enter the URL:
+   ```
+   http://localhost:5000/api/memory/save
+   ```
+4. Go to the `Body` tab, select `raw` and `JSON`, and enter:
+   ```json
+   {
+     "userID": "<valid_user_id>",
+     "gameDate": "2024-06-01T12:00:00Z",
+     "failed": 2,
+     "difficulty": "Normal",
+     "completed": 10,
+     "timeTaken": 120
+   }
+   ```
+   Replace `<valid_user_id>` with a real user ID from your database.
+5. Click `Send`.
+6. You should receive a success message or validation errors.
+
+### How to Test with cURL
+Run the following command (replace `<valid_user_id>`):
+
+```
+curl -X POST http://localhost:5000/api/memory/save \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userID": "<valid_user_id>",
+    "gameDate": "2024-06-01T12:00:00Z",
+    "failed": 2,
+    "difficulty": "Normal",
+    "completed": 10,
+    "timeTaken": 120
+  }'
+```
+
+#### Example: Validation Error (missing field)
+
+```
+curl -X POST http://localhost:5000/api/memory/save \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userID": "<valid_user_id>",
+    "gameDate": "2024-06-01T12:00:00Z",
+    "failed": 2,
+    "difficulty": "Normal",
+    "completed": 10
+  }'
+```
+
+---
+
+**Note:**
+- Ensure your backend server is running (`npm start` in the backend directory).
 - Make sure MongoDB is running and accessible. 
