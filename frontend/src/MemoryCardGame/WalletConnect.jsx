@@ -16,6 +16,17 @@ const MetaMaskIcon = () => (
   </svg>
 );
 
+const buttonBase = {
+  border: 'none',
+  borderRadius: '8px',
+  fontWeight: 600,
+  cursor: 'pointer',
+  transition: 'background 0.2s, box-shadow 0.2s, transform 0.1s',
+  boxShadow: '0 2px 8px rgba(99,102,241,0.10)',
+  outline: 'none',
+  margin: '0 0.2rem',
+};
+
 const WalletConnect = () => {
   const [address, setAddress] = useState(() => localStorage.getItem('walletAddress') || '');
   const [error, setError] = useState('');
@@ -93,18 +104,19 @@ const WalletConnect = () => {
             gap: '0.5rem',
           }}>
             <MetaMaskIcon />
-            <span style={{ color: '#6366f1' }}>{shortAddress(address)}</span>
+            <span style={{ color: '#6366f1', fontWeight: 700 }}>{shortAddress(address)}</span>
             <button
               onClick={handleCopy}
+              aria-label="Copy wallet address"
               style={{
-                background: 'none',
-                border: 'none',
-                color: '#6366f1',
-                cursor: 'pointer',
-                fontWeight: 600,
+                ...buttonBase,
+                background: copied ? 'linear-gradient(90deg, #22c55e 0%, #4ade80 100%)' : 'none',
+                color: copied ? '#fff' : '#6366f1',
                 fontSize: '1.1rem',
+                padding: '0.3rem 0.7rem',
                 marginLeft: '0.3rem',
-                padding: 0,
+                border: copied ? '1.5px solid #22c55e' : '1.5px solid #6366f1',
+                boxShadow: copied ? '0 2px 8px #22c55e33' : '0 2px 8px #6366f133',
               }}
               title="Copy address"
             >
@@ -117,18 +129,21 @@ const WalletConnect = () => {
               setAddress('');
               localStorage.removeItem('walletAddress');
             }}
+            aria-label="Disconnect wallet"
             style={{
+              ...buttonBase,
               background: 'linear-gradient(90deg, #a5b4fc 0%, #818cf8 100%)',
               color: '#fff',
-              border: 'none',
-              borderRadius: '8px',
-              padding: '0.6rem 1.2rem',
               fontSize: '1rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(99,102,241,0.08)',
-              transition: 'background 0.2s, transform 0.1s',
+              padding: '0.6rem 1.2rem',
+              marginTop: '0.2rem',
+              marginBottom: '0.2rem',
+              boxShadow: '0 2px 8px #818cf833',
             }}
+            onMouseOver={e => e.currentTarget.style.background = 'linear-gradient(90deg, #818cf8 0%, #6366f1 100%)'}
+            onMouseOut={e => e.currentTarget.style.background = 'linear-gradient(90deg, #a5b4fc 0%, #818cf8 100%)'}
+            onMouseDown={e => e.currentTarget.style.transform = 'scale(0.97)'}
+            onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
           >
             Disconnect
           </button>
@@ -137,19 +152,24 @@ const WalletConnect = () => {
         <button
           onClick={connectWallet}
           disabled={isConnecting}
+          aria-label="Connect MetaMask wallet"
           style={{
+            ...buttonBase,
             background: 'linear-gradient(90deg, #6366f1 0%, #60a5fa 100%)',
             color: '#fff',
-            border: 'none',
-            borderRadius: '8px',
-            padding: '0.85rem 1.5rem',
             fontSize: '1.1rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(99,102,241,0.08)',
-            transition: 'background 0.2s, transform 0.1s',
+            padding: '0.85rem 1.5rem',
+            marginTop: '0.2rem',
+            marginBottom: '0.2rem',
+            boxShadow: '0 4px 16px #6366f144',
+            border: '1.5px solid #6366f1',
           }}
+          onMouseOver={e => e.currentTarget.style.background = 'linear-gradient(90deg, #4f46e5 0%, #2563eb 100%)'}
+          onMouseOut={e => e.currentTarget.style.background = 'linear-gradient(90deg, #6366f1 0%, #60a5fa 100%)'}
+          onMouseDown={e => e.currentTarget.style.transform = 'scale(0.97)'}
+          onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
         >
+          <MetaMaskIcon />
           {isConnecting ? 'Connecting...' : 'Connect Wallet'}
         </button>
       )}
